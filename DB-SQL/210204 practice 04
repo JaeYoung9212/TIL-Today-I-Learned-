@@ -1,15 +1,15 @@
 /*
-±Ã±ØÀûÀ¸·Î °Ô½ÃÆÇ Å×ÀÌºíÀ» ¸¸µé°ÍÀÌ´Ù. Å×ÀÌºí¿¡´Â 11°³ÀÇ Å×ÀÌÅÍ¸¦ ³ÖÀ» °ÍÀÌ´Ù.
-°Ô½ÃÆÇÀÇ bno (±Û¹øÈ£) : PK / bmno(È¸¿ø¹øÈ£) :FK -> ¸â¹ö Å×ÀÌºíÀÇ PK: mno(È¸¿ø¹øÈ£ ÂüÁ¶) /
-¸â¹ö Å×ÀÌºíÀÇ ano(¾Æ¹ÙÅ¸¹øÈ£) FK -> ¾Æ¹ÙÅ¸Å×ÀÌºíÀÇ PK : ano(¾Æ¹ÙÅ¸ ¹øÈ£) ÂüÁ¶
--->Áï :avatar Å×ÀÌºí¿¡ ano¹øÈ£´Â member Å×ÀÌºíÀÇ mno¿Í ¹øÈ£°¡ °°¾Æ¾ßÇÏ°í,
-        board Å×ÀÌºíÀÇ bmno ¹øÈ£´Â member Å×ÀÌºíÀÇ mnoÀÇ ¹øÈ£¿Í °°¾Æ¾ßÇÑ´Ù.
-        °Ô½ÃÆÇ Å×ÀÌºí¿¡ 11°³ÀÇ µ¥ÀÌÅÍ¸¦ ¸¸µå·Á¸é avatar ¿Í member Å×ÀÌºí¿¡µµ 11°³ÀÇ Å×ÀÌÅÍ°¡ ÇÊ¿äÇÏ´Ù.
--->±×·¸Áö ¾ÊÀ¸¸é °Ô½ÃÆÇ Å×ÀÌºí »ý¼º½Ã bmno FK Á¦¾àÁ¶°Ç¿¡¼­  parent key not found ¿À·ù ¹ß»ý
+ê¶ê·¹ì ìœ¼ë¡œ ê²Œì‹œíŒ í…Œì´ë¸”ì„ ë§Œë“¤ê²ƒì´ë‹¤. í…Œì´ë¸”ì—ëŠ” 11ê°œì˜ í…Œì´í„°ë¥¼ ë„£ì„ ê²ƒì´ë‹¤.
+ê²Œì‹œíŒì˜ bno (ê¸€ë²ˆí˜¸) : PK / bmno(íšŒì›ë²ˆí˜¸) :FK -> ë©¤ë²„ í…Œì´ë¸”ì˜ PK: mno(íšŒì›ë²ˆí˜¸ ì°¸ì¡°) /
+ë©¤ë²„ í…Œì´ë¸”ì˜ ano(ì•„ë°”íƒ€ë²ˆí˜¸) FK -> ì•„ë°”íƒ€í…Œì´ë¸”ì˜ PK : ano(ì•„ë°”íƒ€ ë²ˆí˜¸) ì°¸ì¡°
+-->ì¦‰ :avatar í…Œì´ë¸”ì— anoë²ˆí˜¸ëŠ” member í…Œì´ë¸”ì˜ mnoì™€ ë²ˆí˜¸ê°€ ê°™ì•„ì•¼í•˜ê³ ,
+        board í…Œì´ë¸”ì˜ bmno ë²ˆí˜¸ëŠ” member í…Œì´ë¸”ì˜ mnoì˜ ë²ˆí˜¸ì™€ ê°™ì•„ì•¼í•œë‹¤.
+        ê²Œì‹œíŒ í…Œì´ë¸”ì— 11ê°œì˜ ë°ì´í„°ë¥¼ ë§Œë“œë ¤ë©´ avatar ì™€ member í…Œì´ë¸”ì—ë„ 11ê°œì˜ í…Œì´í„°ê°€ í•„ìš”í•˜ë‹¤.
+-->ê·¸ë ‡ì§€ ì•Šìœ¼ë©´ ê²Œì‹œíŒ í…Œì´ë¸” ìƒì„±ì‹œ bmno FK ì œì•½ì¡°ê±´ì—ì„œ  parent key not found ì˜¤ë¥˜ ë°œìƒ
 */
 
 
---¾Æ¹ÙÅ¸ Å×ÀÌºí ¸¸µé±â--
+--ì•„ë°”íƒ€ í…Œì´ë¸” ë§Œë“¤ê¸°--
 CREATE TABLE avatar(
     ano NUMBER(2)
         CONSTRAINT PR_AVT_NO_PK PRIMARY KEY,
@@ -24,11 +24,11 @@ CREATE TABLE avatar(
     adate DATE DEFAULT SYSDATE
         CONSTRAINT PR_DATE_NN NOT NULL
 );
--- ¾Æ¹ÙÅ¸ Å×ÀÌºí¿¡ »ç¿ëÇÒ ½ÃÄö½º ¸¸µé±â
+-- ì•„ë°”íƒ€ í…Œì´ë¸”ì— ì‚¬ìš©í•  ì‹œí€€ìŠ¤ ë§Œë“¤ê¸°
 CREATE SEQUENCE pr_avt_seq 
     START WITH 11;
     
--- ¾Æ¹ÙÅ¸ Å×ÀÌºí¿¡ µ¥ÀÌÅÍ ³Ö±â(11°³)
+-- ì•„ë°”íƒ€ í…Œì´ë¸”ì— ë°ì´í„° ë„£ê¸°(11ê°œ)
 INSERT INTO 
     avatar(ano, savename, gen)
 VALUES(pr_avt_seq.NEXTVAL, 'img_avatar1.png', 'M')
@@ -85,7 +85,7 @@ VALUES(pr_avt_seq.NEXTVAL, 'img_avatar11.png', 'F')
 ; 
 
 
---È¸¿ø Å×ÀÌºí ¸¸µé±â--
+--íšŒì› í…Œì´ë¸” ë§Œë“¤ê¸°--
 CREATE TABLE MEMBER(
     mno NUMBER(4)
         CONSTRAINT PR_MEM_NO_PK PRIMARY KEY,
@@ -116,88 +116,88 @@ CREATE TABLE MEMBER(
         CONSTRAINT PR_MEM_SHOW_CK CHECK( isshow IN ('Y','N'))
         CONSTRAINT PR_MEM_SHOW_NN NOT NULL
 );
---¸â¹öÅ×ÀÌºí¿¡¼­ ¾µ ½ÃÄö½º ¸¸µé±â    
+--ë©¤ë²„í…Œì´ë¸”ì—ì„œ ì“¸ ì‹œí€€ìŠ¤ ë§Œë“¤ê¸°    
 CREATE SEQUENCE PR_M_SEQ01
     START WITH 1001
     MAXVALUE 9999;
 
 
---¸â¹öÅ×ÀÌºí¿¡ µ¥ÀÌÅÍ ³Ö±â(11°³)      
+--ë©¤ë²„í…Œì´ë¸”ì— ë°ì´í„° ë„£ê¸°(11ê°œ)      
 INSERT INTO 
     member(mno, id, pw, name, tel, mail, gen, ano, bdate)
 VALUES(
-    PR_M_SEQ01.NEXTVAL, 'jun', '12345', '¿À¸®', '010-1111-1111', 'jun@increpas.com','M','11','1867/05/05');
+    PR_M_SEQ01.NEXTVAL, 'jun', '12345', 'ì˜¤ë¦¬', '010-1111-1111', 'jun@increpas.com','M','11','1867/05/05');
 
 INSERT INTO 
     member(mno, id, pw, name, tel, mail, gen, ano, bdate)
 VALUES(
-    PR_M_SEQ01.NEXTVAL, 'jan', '12345', '¸êÄ¡', '010-2222-2222', 'jen@increpas.com','M','12','1878/05/05');
+    PR_M_SEQ01.NEXTVAL, 'jan', '12345', 'ë©¸ì¹˜', '010-2222-2222', 'jen@increpas.com','M','12','1878/05/05');
 
 INSERT INTO 
     member(mno, id, pw, name, tel, mail, gen, ano, bdate)
 VALUES(
-    PR_M_SEQ01.NEXTVAL, 'ben', '12345', '»çÀÚ', '010-3333-3333', 'ben@increpas.com','M','13','1999/05/05');
+    PR_M_SEQ01.NEXTVAL, 'ben', '12345', 'ì‚¬ìž', '010-3333-3333', 'ben@increpas.com','M','13','1999/05/05');
 
 INSERT INTO 
     member(mno, id, pw, name, tel, mail, gen, ano, bdate)
 VALUES(
-    PR_M_SEQ01.NEXTVAL, 'cat', '12345', '°í¾çÀÌ', '010-4444-4444', 'cat@increpas.com','F','14','1997/05/05');
+    PR_M_SEQ01.NEXTVAL, 'cat', '12345', 'ê³ ì–‘ì´', '010-4444-4444', 'cat@increpas.com','F','14','1997/05/05');
 
 INSERT INTO 
     member(mno, id, pw, name, tel, mail, gen, ano, bdate)
 VALUES(
-    PR_M_SEQ01.NEXTVAL, 'jane', '12345', 'ÇÏ¸¶', '010-5555-5555', 'jane@increpas.com','F','15','1867/05/05');
+    PR_M_SEQ01.NEXTVAL, 'jane', '12345', 'í•˜ë§ˆ', '010-5555-5555', 'jane@increpas.com','F','15','1867/05/05');
 
 INSERT INTO 
     member(mno, id, pw, name, tel, mail, gen, ano, bdate)
 VALUES(
-    PR_M_SEQ01.NEXTVAL, 'ron', '12345', '±¸ÇÇ', '010-6666-6666', 'ron@increpas.com','F','16','1998/05/05');
+    PR_M_SEQ01.NEXTVAL, 'ron', '12345', 'êµ¬í”¼', '010-6666-6666', 'ron@increpas.com','F','16','1998/05/05');
 
 INSERT INTO 
     member(mno, id, pw, name, tel, mail, gen, ano, bdate)
 VALUES(
-    PR_M_SEQ01.NEXTVAL, 'maya', '12345', '°Å¹Ì', '010-7777-7777', 'maya@increpas.com','H','17','1981/05/05');
+    PR_M_SEQ01.NEXTVAL, 'maya', '12345', 'ê±°ë¯¸', '010-7777-7777', 'maya@increpas.com','H','17','1981/05/05');
     
 INSERT INTO 
     member(mno, id, pw, name, tel, mail, gen, ano, bdate)
 VALUES(
-    PR_M_SEQ01.NEXTVAL, 'yen', '12345', 'µÅÁö', '010-8888-8888', 'yen@increpas.com','M','18','1977/05/05');
+    PR_M_SEQ01.NEXTVAL, 'yen', '12345', 'ë¼ì§€', '010-8888-8888', 'yen@increpas.com','M','18','1977/05/05');
     
 INSERT INTO 
     member(mno, id, pw, name, tel, mail, gen, ano, bdate)
 VALUES(
-    PR_M_SEQ01.NEXTVAL, 'jamie', '12345', '¼Ò', '010-9999-9999', 'jamie@increpas.com','M','19','1998/09/05');
+    PR_M_SEQ01.NEXTVAL, 'jamie', '12345', 'ì†Œ', '010-9999-9999', 'jamie@increpas.com','M','19','1998/09/05');
 
 INSERT INTO 
     member(mno, id, pw, name, tel, mail, gen, ano, bdate)
 VALUES(
-    PR_M_SEQ01.NEXTVAL, 'lyn', '12345', '¸»', '010-1010-1010', 'lyn@increpas.com','F','20','1996/04/05');
+    PR_M_SEQ01.NEXTVAL, 'lyn', '12345', 'ë§', '010-1010-1010', 'lyn@increpas.com','F','20','1996/04/05');
 
 INSERT INTO 
     member(mno, id, pw, name, tel, mail, gen, ano, bdate)
 VALUES(
-    PR_M_SEQ01.NEXTVAL, 'jack', '12345', '±î¸¶±Í', '010-1100-1100', 'jack@increpas.com','F','21','1979/10/05');
+    PR_M_SEQ01.NEXTVAL, 'jack', '12345', 'ê¹Œë§ˆê·€', '010-1100-1100', 'jack@increpas.com','F','21','1979/10/05');
     
     
----------¸¸µç ¾Æ¹ÙÅ¸Å×ÀÌºí°ú ¸â¹öÅ×ÀÌºíÀ» Á¶ÇÕÇØ¼­ °á°ú Á¶È¸ÇÏ±â
+---------ë§Œë“  ì•„ë°”íƒ€í…Œì´ë¸”ê³¼ ë©¤ë²„í…Œì´ë¸”ì„ ì¡°í•©í•´ì„œ ê²°ê³¼ ì¡°íšŒí•˜ê¸°
 SELECT
-    mno È¸¿ø¹øÈ£, id ¾ÆÀÌµð, name ÀÌ¸§, mail ¸ÞÀÏ, tel ÀüÈ­¹øÈ£, 
-    DECODE(m.gen,'M','³²ÀÚ',
-                 'F', '¿©ÀÚ',
-                  '»ç¶÷') ¼ºº°, CONCAT(CONCAT(dir,'/'), savename) ¾Æ¹ÙÅ¸°æ·Î
+    mno íšŒì›ë²ˆí˜¸, id ì•„ì´ë””, name ì´ë¦„, mail ë©”ì¼, tel ì „í™”ë²ˆí˜¸, 
+    DECODE(m.gen,'M','ë‚¨ìž',
+                 'F', 'ì—¬ìž',
+                  'ì‚¬ëžŒ') ì„±ë³„, CONCAT(CONCAT(dir,'/'), savename) ì•„ë°”íƒ€ê²½ë¡œ
 FROM
     avatar a, member m
 WHERE
     a.ano = m.ano
 ;
 
--- °Ô½ÃÆÇ Å×ÀÌºí ¸¸µé±â--
+-- ê²Œì‹œíŒ í…Œì´ë¸” ë§Œë“¤ê¸°--
 /*
-°Ô½ÃÆÇÀÇ bno (±Û¹øÈ£) : PK / bmno(È¸¿ø¹øÈ£) :FK -> ¸â¹ö Å×ÀÌºíÀÇ PK: mno(È¸¿ø¹øÈ£ ÂüÁ¶) /
-¸â¹ö Å×ÀÌºíÀÇ ano(¾Æ¹ÙÅ¸¹øÈ£) FK -> ¾Æ¹ÙÅ¸Å×ÀÌºíÀÇ PK : ano(¾Æ¹ÙÅ¸ ¹øÈ£) ÂüÁ¶
+ê²Œì‹œíŒì˜ bno (ê¸€ë²ˆí˜¸) : PK / bmno(íšŒì›ë²ˆí˜¸) :FK -> ë©¤ë²„ í…Œì´ë¸”ì˜ PK: mno(íšŒì›ë²ˆí˜¸ ì°¸ì¡°) /
+ë©¤ë²„ í…Œì´ë¸”ì˜ ano(ì•„ë°”íƒ€ë²ˆí˜¸) FK -> ì•„ë°”íƒ€í…Œì´ë¸”ì˜ PK : ano(ì•„ë°”íƒ€ ë²ˆí˜¸) ì°¸ì¡°
 
-°Ô½ÃÆÇ Å×ÀÌºí ±¸¼º ÄÃ·³
-bno(±Û¹øÈ£), title(Á¦¸ñ), body(º»¹®), bmno(ÀÛ¼ºÀÚ), wdate(ÀÛ¼ºÀÏ), click(Á¶È¸¼ö), isschow(³ëÃâ¿©ºÎ)
+ê²Œì‹œíŒ í…Œì´ë¸” êµ¬ì„± ì»¬ëŸ¼
+bno(ê¸€ë²ˆí˜¸), title(ì œëª©), body(ë³¸ë¬¸), bmno(ìž‘ì„±ìž), wdate(ìž‘ì„±ì¼), click(ì¡°íšŒìˆ˜), isschow(ë…¸ì¶œì—¬ë¶€)
 */
 
 CREATE TABLE board(
@@ -219,116 +219,116 @@ CREATE TABLE board(
         CONSTRAINT PR_BRD_SHOW_NN NOT NULL
     );
 
--- °Ô½ÃÆÇ Å×ÀÌºí¿¡ »ç¿ëÇÒ ½ÃÄö½º ¸¸µé±â--
+-- ê²Œì‹œíŒ í…Œì´ë¸”ì— ì‚¬ìš©í•  ì‹œí€€ìŠ¤ ë§Œë“¤ê¸°--
 CREATE SEQUENCE PR_BRD_SEQ;
 
--- °Ô½ÃÆÇ Å×ÀÌºí¿¡ µ¥ÀÌÅÍ ³Ö±â(11°³)--
+-- ê²Œì‹œíŒ í…Œì´ë¸”ì— ë°ì´í„° ë„£ê¸°(11ê°œ)--
 INSERT INTO board(
     bno, title, body, bmno)
-VALUES(pr_brd_seq.NEXTVAL, '°Ô½Ã±Û Á¦¸ñ1', '°Ô½Ã±Û ³»¿ë1', 1001
+VALUES(pr_brd_seq.NEXTVAL, 'ê²Œì‹œê¸€ ì œëª©1', 'ê²Œì‹œê¸€ ë‚´ìš©1', 1001
     );
     
 INSERT INTO board(
     bno, title, body, bmno)
-VALUES(pr_brd_seq.NEXTVAL, '°Ô½Ã±Û Á¦¸ñ2', '°Ô½Ã±Û ³»¿ë2', 1002
+VALUES(pr_brd_seq.NEXTVAL, 'ê²Œì‹œê¸€ ì œëª©2', 'ê²Œì‹œê¸€ ë‚´ìš©2', 1002
     );
     
 INSERT INTO board(
     bno, title, body, bmno)
-VALUES(pr_brd_seq.NEXTVAL, '°Ô½Ã±Û Á¦¸ñ3', '°Ô½Ã±Û ³»¿ë3', 1003
+VALUES(pr_brd_seq.NEXTVAL, 'ê²Œì‹œê¸€ ì œëª©3', 'ê²Œì‹œê¸€ ë‚´ìš©3', 1003
     );
     
 INSERT INTO board(
     bno, title, body, bmno)
-VALUES(pr_brd_seq.NEXTVAL, '°Ô½Ã±Û Á¦¸ñ4', '°Ô½Ã±Û ³»¿ë4', 1004
+VALUES(pr_brd_seq.NEXTVAL, 'ê²Œì‹œê¸€ ì œëª©4', 'ê²Œì‹œê¸€ ë‚´ìš©4', 1004
     );
     
 INSERT INTO board(
     bno, title, body, bmno)
-VALUES(pr_brd_seq.NEXTVAL, '°Ô½Ã±Û Á¦¸ñ5', '°Ô½Ã±Û ³»¿ë5', 1005
+VALUES(pr_brd_seq.NEXTVAL, 'ê²Œì‹œê¸€ ì œëª©5', 'ê²Œì‹œê¸€ ë‚´ìš©5', 1005
     );
     
 INSERT INTO board(
     bno, title, body, bmno)
-VALUES(pr_brd_seq.NEXTVAL, '°Ô½Ã±Û Á¦¸ñ6', '°Ô½Ã±Û ³»¿ë6', 1006
+VALUES(pr_brd_seq.NEXTVAL, 'ê²Œì‹œê¸€ ì œëª©6', 'ê²Œì‹œê¸€ ë‚´ìš©6', 1006
     );
 
 INSERT INTO board(
     bno, title, body, bmno)
-VALUES(pr_brd_seq.NEXTVAL, '°Ô½Ã±Û Á¦¸ñ7', '°Ô½Ã±Û ³»¿ë7', 1007
+VALUES(pr_brd_seq.NEXTVAL, 'ê²Œì‹œê¸€ ì œëª©7', 'ê²Œì‹œê¸€ ë‚´ìš©7', 1007
     );
 
 INSERT INTO board(
     bno, title, body, bmno)
-VALUES(pr_brd_seq.NEXTVAL, '°Ô½Ã±Û Á¦¸ñ8', '°Ô½Ã±Û ³»¿ë6', 1008
+VALUES(pr_brd_seq.NEXTVAL, 'ê²Œì‹œê¸€ ì œëª©8', 'ê²Œì‹œê¸€ ë‚´ìš©6', 1008
     );
 
 INSERT INTO board(
     bno, title, body, bmno)
-VALUES(pr_brd_seq.NEXTVAL, '°Ô½Ã±Û Á¦¸ñ9', '°Ô½Ã±Û ³»¿ë9', 1009
+VALUES(pr_brd_seq.NEXTVAL, 'ê²Œì‹œê¸€ ì œëª©9', 'ê²Œì‹œê¸€ ë‚´ìš©9', 1009
     );
     
 INSERT INTO board(
     bno, title, body, bmno)
-VALUES(pr_brd_seq.NEXTVAL, '°Ô½Ã±Û Á¦¸ñ10', '°Ô½Ã±Û ³»¿ë10', 1010
+VALUES(pr_brd_seq.NEXTVAL, 'ê²Œì‹œê¸€ ì œëª©10', 'ê²Œì‹œê¸€ ë‚´ìš©10', 1010
     );
     
 INSERT INTO board(
     bno, title, body, bmno)
-VALUES(pr_brd_seq.NEXTVAL, '°Ô½Ã±Û Á¦¸ñ11', '°Ô½Ã±Û ³»¿ë11', 1011
+VALUES(pr_brd_seq.NEXTVAL, 'ê²Œì‹œê¸€ ì œëª©11', 'ê²Œì‹œê¸€ ë‚´ìš©11', 1011
     );    
--------------------------------------------------ÀÌÀ§±îÁö pr °èÁ¤¿¡¼­ ÀÛ¾÷. 
+-------------------------------------------------ì´ìœ„ê¹Œì§€ pr ê³„ì •ì—ì„œ ìž‘ì—…. 
 /*
-<SQL PLUS ¿¡¼­ÀÇ °èÁ¤»ý¼º, ±ÇÇÑ : °ü¸®ÀÚ °èÁ¤¿¡¼­¸¸ °¡´É>
+<SQL PLUS ì—ì„œì˜ ê³„ì •ìƒì„±, ê¶Œí•œ : ê´€ë¦¬ìž ê³„ì •ì—ì„œë§Œ ê°€ëŠ¥>
 
-1. »ý¼º
-CREATE USER À¯ÀúÀÌ¸§ IDENTIFIED BY ºñ¹Ð¹øÈ£ [ACCOUNT UNLOCK];
+1. ìƒì„±
+CREATE USER ìœ ì €ì´ë¦„ IDENTIFIED BY ë¹„ë°€ë²ˆí˜¸ [ACCOUNT UNLOCK];
 
-2.±ÇÇÑºÎ¿©
-Âü°í·Î  RESOURCE ¿Í CONNECT´Â ÀÚÁÖ ¾²ÀÌ´Â ±ÇÇÑ¿¡ ´ëÇÑ ·Ñ
-GRANT RESOURCE, CONNECT TO °èÁ¤ÀÌ¸§ [ WITH ADMIN OPTION- °ü¸®ÀÚ ±ÇÇÑ±îÁö À§ÀÓ];
-GRANT CREATE SESSION TO °èÁ¤ÀÌ¸§ 
+2.ê¶Œí•œë¶€ì—¬
+ì°¸ê³ ë¡œ  RESOURCE ì™€ CONNECTëŠ” ìžì£¼ ì“°ì´ëŠ” ê¶Œí•œì— ëŒ€í•œ ë¡¤
+GRANT RESOURCE, CONNECT TO ê³„ì •ì´ë¦„ [ WITH ADMIN OPTION- ê´€ë¦¬ìž ê¶Œí•œê¹Œì§€ ìœ„ìž„];
+GRANT CREATE SESSION TO ê³„ì •ì´ë¦„ 
 
-3. ´Ù¸¥°èÁ¤À¸·Î ÀüÈ¯
-CONN °èÁ¤ÀÌ¸§/ºñ¹ø;
+3. ë‹¤ë¥¸ê³„ì •ìœ¼ë¡œ ì „í™˜
+CONN ê³„ì •ì´ë¦„/ë¹„ë²ˆ;
 
-4. °ü¸®ÀÚ °èÁ¤ÀÌ ¾Æ´Ñ ÇØ´ç°èÁ¤À¸·Î ¹Ù²Û´ÙÀ½¿¡ Å×ÀÌºí »ý¼ºµîÀ» ÇÑ´Ù.
+4. ê´€ë¦¬ìž ê³„ì •ì´ ì•„ë‹Œ í•´ë‹¹ê³„ì •ìœ¼ë¡œ ë°”ê¾¼ë‹¤ìŒì— í…Œì´ë¸” ìƒì„±ë“±ì„ í•œë‹¤.
 
--- Å×ÀÌºíÀ» »ý¼ºÇÏ´Âµ¥ Å×ÀÌºí ½ºÆäÀÌ½º ¿À·ù½Ã-- Å×ÀÌºí ½ºÆäÀÌ½º º¯°æÇÏ±â
-ALTER USER °èÁ¤ÀÌ¸§ DEFAULT TABLESPACE  Å×ÀÌºí½ºÆäÀÌ½ºÀÌ¸§; --->SYSTEM À¸·Î µÇ¾îÀÖÀ¸¸é USERS·Î ¹Ù²ãÁÜ
+-- í…Œì´ë¸”ì„ ìƒì„±í•˜ëŠ”ë° í…Œì´ë¸” ìŠ¤íŽ˜ì´ìŠ¤ ì˜¤ë¥˜ì‹œ-- í…Œì´ë¸” ìŠ¤íŽ˜ì´ìŠ¤ ë³€ê²½í•˜ê¸°
+ALTER USER ê³„ì •ì´ë¦„ DEFAULT TABLESPACE  í…Œì´ë¸”ìŠ¤íŽ˜ì´ìŠ¤ì´ë¦„; --->SYSTEM ìœ¼ë¡œ ë˜ì–´ìžˆìœ¼ë©´ USERSë¡œ ë°”ê¿”ì¤Œ
 
-5. ´Ù¸¥ °èÁ¤ÀÌ °¡Áö°í ÀÖ´Â Å×ÀÌºíÀ» º¹»çÇØ¼­ »ý¼º½Ã
+5. ë‹¤ë¥¸ ê³„ì •ì´ ê°€ì§€ê³  ìžˆëŠ” í…Œì´ë¸”ì„ ë³µì‚¬í•´ì„œ ìƒì„±ì‹œ
 
-CREATE »ý¼ºÇÒ Å×ÀÌºí ÀÌ¸§
+CREATE ìƒì„±í•  í…Œì´ë¸” ì´ë¦„
 AS 
     SELECT
         *
     FROM 
-        °¡Á®¿Ã µ¥ÀÌÅÍ°¡ ÀÖ´Â Å×ÀÌºíÀÌ¸§.°¡Á®¿Ã Å×ÀÌºí
+        ê°€ì ¸ì˜¬ ë°ì´í„°ê°€ ìžˆëŠ” í…Œì´ë¸”ì´ë¦„.ê°€ì ¸ì˜¬ í…Œì´ë¸”
 ;
 
-Âü°í] ½Ã½ºÅÛ °èÁ¤ÀÌ Àá°åÀ» ¶§ Àá±Ý Ç®±â
+ì°¸ê³ ] ì‹œìŠ¤í…œ ê³„ì •ì´ ìž ê²¼ì„ ë•Œ ìž ê¸ˆ í’€ê¸°
 
---sqlplus / as sysdba ·Î Á¢¼Ó 
---> ½Ã½ºÅÛ °èÁ¤ Á¢±Ù : ¸¸¾à Àá°ÜÀÖÀ¸¸é ALTER USER system IDENTIFIED BY increpas ACCOUNT UNLOCK;
+--sqlplus / as sysdba ë¡œ ì ‘ì† 
+--> ì‹œìŠ¤í…œ ê³„ì • ì ‘ê·¼ : ë§Œì•½ ìž ê²¨ìžˆìœ¼ë©´ ALTER USER system IDENTIFIED BY increpas ACCOUNT UNLOCK;
 
 */
 
 /*
-<SQL DEVELPER ¿¡¼­ÀÇ °èÁ¤»ý¼º, ±ÇÇÑ: ¿ª½Ã °ü¸®ÀÚ °èÁ¤>
-1. hello / increpas °èÁ¤À» ¸¸µå¼¼¿ä
-2. SCOTT °èÁ¤¿¡ emp, dept, salgrade, bonus ¸¦ º¹»çÇØ¼­ Å×ÀÌºíÀ» ¸¸µå¼¼¿ä
-3. À§¿¡¼­ º¹»çÇÑ Å×ÀÌºíµéÀÇ Á¦¾àÁ¶°ÇÀ» È®ÀÎÇÏ°í º¹»çÇÑ Å×ÀÌºí¿¡ ºÎ¿©ÇÏ¼¼¿ä
+<SQL DEVELPER ì—ì„œì˜ ê³„ì •ìƒì„±, ê¶Œí•œ: ì—­ì‹œ ê´€ë¦¬ìž ê³„ì •>
+1. hello / increpas ê³„ì •ì„ ë§Œë“œì„¸ìš”
+2. SCOTT ê³„ì •ì— emp, dept, salgrade, bonus ë¥¼ ë³µì‚¬í•´ì„œ í…Œì´ë¸”ì„ ë§Œë“œì„¸ìš”
+3. ìœ„ì—ì„œ ë³µì‚¬í•œ í…Œì´ë¸”ë“¤ì˜ ì œì•½ì¡°ê±´ì„ í™•ì¸í•˜ê³  ë³µì‚¬í•œ í…Œì´ë¸”ì— ë¶€ì—¬í•˜ì„¸ìš”
 */
 
--- ½Ã½ºÅÛ °èÁ¤À¸·Î ÀüÈ¯ hello °èÁ¤ »ý¼ºÇÏ±â
+-- ì‹œìŠ¤í…œ ê³„ì •ìœ¼ë¡œ ì „í™˜ hello ê³„ì • ìƒì„±í•˜ê¸°
 CREATE USER hello IDENTIFIED BY increaps ACCOUNT UNLOCK;
 
---±ÇÇÑÀ» ºÎ¿©ÇÏ±â
+--ê¶Œí•œì„ ë¶€ì—¬í•˜ê¸°
 GRANT RESOURCE, CONNECT, SELECT ANY TABLE TO hello;
 
---ÀÌÁ¦ hello °èÁ¤À» + ·Î ½ÇÁ¦ÀûÀ¸·Î »ý¼ºÇØÁØ´Ù.
--- Å×½ºÆ® ÈÄ ÀúÀå hello·Î Á¢¼ÓÇØ¼­ Å×ÀÌºí ¸¸µé±â
+--ì´ì œ hello ê³„ì •ì„ + ë¡œ ì‹¤ì œì ìœ¼ë¡œ ìƒì„±í•´ì¤€ë‹¤.
+-- í…ŒìŠ¤íŠ¸ í›„ ì €ìž¥ helloë¡œ ì ‘ì†í•´ì„œ í…Œì´ë¸” ë§Œë“¤ê¸°
 CREATE TABLE emp
 AS
     SELECT 
@@ -361,14 +361,14 @@ AS
         SCOTT.bonus
 ;
 
---SCOTT °èÁ¤ÀÇ ¿øº» Å×ÀÌºíÀ» Âü°íÇÏ·Á Á¦¾àÁ¶°Ç °¡Á®¿À±â
+--SCOTT ê³„ì •ì˜ ì›ë³¸ í…Œì´ë¸”ì„ ì°¸ê³ í•˜ë ¤ ì œì•½ì¡°ê±´ ê°€ì ¸ì˜¤ê¸°
 
 ALTER TABLE 
     emp
 ADD
     CONSTRAINT HELLO_EMP_ENO_PK PRIMARY KEY(empno);
     
--- ************Áß¿ä:EMP ¿¡ FK¸¦ °É¶§ DEPT Å×ÀÌºí¿¡¼­ ¸ÕÀú deptno¿¡ ´ëÇØ ±âº»Å°¸¦ ¼³Á¤ÇØÁØÈÄ¿¡ FK¸¦ °É ¼ö ÀÖÀ½*******************    
+-- ************ì¤‘ìš”:EMP ì— FKë¥¼ ê±¸ë•Œ DEPT í…Œì´ë¸”ì—ì„œ ë¨¼ì € deptnoì— ëŒ€í•´ ê¸°ë³¸í‚¤ë¥¼ ì„¤ì •í•´ì¤€í›„ì— FKë¥¼ ê±¸ ìˆ˜ ìžˆìŒ*******************    
 ALTER TABLE
     dept
 ADD
@@ -414,18 +414,18 @@ ALTER TABLE
 MODIFY
     dname CONSTRAINT HELLO_DEPT_NAME_NN NOT NULL;
     
---Âü°í ] Å×ÀÌºí º¹»çÈÄ nullable À» MODIFY ¸í·É¾î·Î NOT NULLÀ» °É¾îÁÙ¶§,
--- ÇØ´çÄ®·³¿¡ ÀÌ¹Ì NULL °ªÀÌ Á¸ÀçÇÑ´Ù¸é NOT NULL À» °É¾îÁÙ ¼ö ¾ø´Ù.
+--ì°¸ê³  ] í…Œì´ë¸” ë³µì‚¬í›„ nullable ì„ MODIFY ëª…ë ¹ì–´ë¡œ NOT NULLì„ ê±¸ì–´ì¤„ë•Œ,
+-- í•´ë‹¹ì¹¼ëŸ¼ì— ì´ë¯¸ NULL ê°’ì´ ì¡´ìž¬í•œë‹¤ë©´ NOT NULL ì„ ê±¸ì–´ì¤„ ìˆ˜ ì—†ë‹¤.
 
---Âü°í] ¶ÇÇÑ ´Ù¸¥ °èÁ¤¿¡¼­ º¹»çÇØ¿Â Å×ÀÌºíÀÇ ÀÌ¸§Àº °°¾Æµµ Á¦¾àÁ¶°ÇÀº ¿øº»Å×ÀÌºí°ú ´Ù¸£°Ô ¼³Á¤ÇØÁà¾ß ÇÑ´Ù.
+--ì°¸ê³ ] ë˜í•œ ë‹¤ë¥¸ ê³„ì •ì—ì„œ ë³µì‚¬í•´ì˜¨ í…Œì´ë¸”ì˜ ì´ë¦„ì€ ê°™ì•„ë„ ì œì•½ì¡°ê±´ì€ ì›ë³¸í…Œì´ë¸”ê³¼ ë‹¤ë¥´ê²Œ ì„¤ì •í•´ì¤˜ì•¼ í•œë‹¤.
 
 
 /*
-PR °èÁ¤¿¡ ¸¸µé¾îÁø
-  MEMBER, AVATER, BOARD Å×ÀÌºíÀ» HELLO °èÁ¤¿¡ º¹»çÇØ¼­ ¸¸µé°í Á¦¾àÁ¶°Ç±îÁö ºÎ¿©ÇÏ¼¼¿ä  
+PR ê³„ì •ì— ë§Œë“¤ì–´ì§„
+  MEMBER, AVATER, BOARD í…Œì´ë¸”ì„ HELLO ê³„ì •ì— ë³µì‚¬í•´ì„œ ë§Œë“¤ê³  ì œì•½ì¡°ê±´ê¹Œì§€ ë¶€ì—¬í•˜ì„¸ìš”  
 */
 
--- PR °èÁ¤¿¡¼­ Å×ÀÌºí º¹»çÇØ¼­ ¸¸µé±â
+-- PR ê³„ì •ì—ì„œ í…Œì´ë¸” ë³µì‚¬í•´ì„œ ë§Œë“¤ê¸°
 CREATE TABLE member
 AS
     SELECT
@@ -442,9 +442,9 @@ AS
         PR.board
 ;
 
---Á¦¾àÁ¶°Ç Ãß°¡
-/* Áß¿ä]******* Å×ÀÌºí º¹»ç½Ã NOT NULL ÀÇ Á¶°ÇÀÌ °É·ÁÀÖ´ø °æ¿ì NOT NULL Á¶°ÇÀº ±×´ë·Î ÀÚµ¿À¸·Î °¡Á®¿À¸ç,
-Á¦¾àÁ¶°ÇÀÇ ÀÌ¸§Àº ¿À¶óÅ¬ÀÌ ¾Ë¾Æ¼­ Á¤ÇØ¹ö¸°´Ù.
+--ì œì•½ì¡°ê±´ ì¶”ê°€
+/* ì¤‘ìš”]******* í…Œì´ë¸” ë³µì‚¬ì‹œ NOT NULL ì˜ ì¡°ê±´ì´ ê±¸ë ¤ìžˆë˜ ê²½ìš° NOT NULL ì¡°ê±´ì€ ê·¸ëŒ€ë¡œ ìžë™ìœ¼ë¡œ ê°€ì ¸ì˜¤ë©°,
+ì œì•½ì¡°ê±´ì˜ ì´ë¦„ì€ ì˜¤ë¼í´ì´ ì•Œì•„ì„œ ì •í•´ë²„ë¦°ë‹¤.
 */
 
 ALTER TABLE avatar
@@ -500,7 +500,7 @@ ALTER TABLE board
 ADD
     CONSTRAINT HELLO_BRD_MNO_FK FOREIGN KEY(bmno) REFERENCES member(mno);
     
----------------ÀÚµ¿À¸·Î °¡Á®¿Â NULL Á¦¾àÁ¶°ÇÀÇ ÀÌ¸§ ¹Ù²ãÁÖ±â--------------
+---------------ìžë™ìœ¼ë¡œ ê°€ì ¸ì˜¨ NULL ì œì•½ì¡°ê±´ì˜ ì´ë¦„ ë°”ê¿”ì£¼ê¸°--------------
 ALTER TABLE avatar
 RENAME CONSTRAINT SYS_C007333 TO HELLO_AVT_SNAME_NN;
 
@@ -561,28 +561,28 @@ RENAME CONSTRAINT SYS_C007341 TO HELLO_BRD_CLICK_NN;
 ALTER TABLE board
 RENAME CONSTRAINT SYS_C007342 TO HELLO_BRD_SHOW_NN;
 
---<Á»ÀÖ´Ù°¡ ¾ÆÄ§¿¡ ÇÒÀÏ>--
+--<ì¢€ìžˆë‹¤ê°€ ì•„ì¹¨ì— í• ì¼>--
 /*
-ÀÌ¹Ì ¸¸µç board Å×ÀÌºí·Î
-°Ô½ÃÆÇ Å×ÀÌºí¿£ µ¥ÀÌÅÍ ÇÑ 11°³Á¤µµ ³Ö±â
-    °Ô½ÃÆÇ Å×ÀÌºíÀ» Á¶È¸ÇÒ ¶§
-    ÇÑ ÆäÀÌÁö¿¡ º¼ ¼ö ÀÖ´Â °Ô½Ã±Û ¼ö´Â 3°³·Î ÇÏ°í (ÇÊ¼ö) -->insert
-    ÇÑ ÆäÀÌÁö¿¡¼­ ÀÌµ¿°¡´ÉÇÑ ÆäÀÌÁö ¼ö´Â 3°³·Î ÇÏ¼¼¿ä.(¿É¼Ç) --> rownum, select
+ì´ë¯¸ ë§Œë“  board í…Œì´ë¸”ë¡œ
+ê²Œì‹œíŒ í…Œì´ë¸”ì—” ë°ì´í„° í•œ 11ê°œì •ë„ ë„£ê¸°
+    ê²Œì‹œíŒ í…Œì´ë¸”ì„ ì¡°íšŒí•  ë•Œ
+    í•œ íŽ˜ì´ì§€ì— ë³¼ ìˆ˜ ìžˆëŠ” ê²Œì‹œê¸€ ìˆ˜ëŠ” 3ê°œë¡œ í•˜ê³  (í•„ìˆ˜) -->insert
+    í•œ íŽ˜ì´ì§€ì—ì„œ ì´ë™ê°€ëŠ¥í•œ íŽ˜ì´ì§€ ìˆ˜ëŠ” 3ê°œë¡œ í•˜ì„¸ìš”.(ì˜µì…˜) --> rownum, select
     
-    ±Û¹øÈ£ | Á¦¸ñ | ÀÛ¼ºÀÚ | ÀÛ¼ºÀÏ   | Á¶È¸¼ö |
+    ê¸€ë²ˆí˜¸ | ì œëª© | ìž‘ì„±ìž | ìž‘ì„±ì¼   | ì¡°íšŒìˆ˜ |
     ------------------------------------------------
     1001    TEST    euns    2021/02/04   0
     1002    TEST    euns    2021/02/04   0
     1003    TEST    euns    2021/02/04   0
     --------------------------------------------------
-            [ÀÌÀü] [1] [2] [3] [´ÙÀ½]  ------> ÆäÀÌÁö¸¦ ´©¸£¸é ¼¼°³°¡ »ÌÇô³ª¿Í¾ß´ï
+            [ì´ì „] [1] [2] [3] [ë‹¤ìŒ]  ------> íŽ˜ì´ì§€ë¥¼ ëˆ„ë¥´ë©´ ì„¸ê°œê°€ ë½‘í˜€ë‚˜ì™€ì•¼ëŒ
             
-            ÆäÀÌÁö ¼ö ÃßÃâ : ÀüÃ¼ °³¼ö ³ª´©±â 3/ ¾Æ¿¹ °Ô½Ã±ÛÀÌ ¾ø´Â °æ¿ì³ª ±×·±°æ¿ì +1 ÇØÁà¾ßÇÔ
-            ÇÑÆäÀÌÁö¿¡ °Ô½Ã±ÛÀÌ 10°³ º¸¿©Áö·Á¸é 10 /3 ±×·³ ³ª¸ÓÁö 1ÀÌ ³²°í +1ÇØÁà¾ßÇÔ
+            íŽ˜ì´ì§€ ìˆ˜ ì¶”ì¶œ : ì „ì²´ ê°œìˆ˜ ë‚˜ëˆ„ê¸° 3/ ì•„ì˜ˆ ê²Œì‹œê¸€ì´ ì—†ëŠ” ê²½ìš°ë‚˜ ê·¸ëŸ°ê²½ìš° +1 í•´ì¤˜ì•¼í•¨
+            í•œíŽ˜ì´ì§€ì— ê²Œì‹œê¸€ì´ 10ê°œ ë³´ì—¬ì§€ë ¤ë©´ 10 /3 ê·¸ëŸ¼ ë‚˜ë¨¸ì§€ 1ì´ ë‚¨ê³  +1í•´ì¤˜ì•¼í•¨
             
-            ¸òÀº FLOOR ·Î Á¤¼öºÎºÐ¸¸ Àß¶óÁÖ¸é‰Î
+            ëª«ì€ FLOOR ë¡œ ì •ìˆ˜ë¶€ë¶„ë§Œ ìž˜ë¼ì£¼ë©´Â‰
             
-            ¿¹) select 0 / 3 from dual;
+            ì˜ˆ) select 0 / 3 from dual;
 */
 
-/* ÁÖ¸»¿¡ ½ÃÄö½º (DAY 13 ) , ÀÎµ¦½º (DAY 14) º¸Ãæ */
+/* ì£¼ë§ì— ì‹œí€€ìŠ¤ (DAY 13 ) , ì¸ë±ìŠ¤ (DAY 14) ë³´ì¶© */
