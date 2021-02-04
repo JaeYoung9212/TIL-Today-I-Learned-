@@ -1,0 +1,588 @@
+/*
+궁극적으로 게시판 테이블을 만들것이다. 테이블에는 11개의 테이터를 넣을 것이다.
+게시판의 bno (글번호) : PK / bmno(회원번호) :FK -> 멤버 테이블의 PK: mno(회원번호 참조) /
+멤버 테이블의 ano(아바타번호) FK -> 아바타테이블의 PK : ano(아바타 번호) 참조
+-->즉 :avatar 테이블에 ano번호는 member 테이블의 mno와 번호가 같아야하고,
+        board 테이블의 bmno 번호는 member 테이블의 mno의 번호와 같아야한다.
+        게시판 테이블에 11개의 데이터를 만드려면 avatar 와 member 테이블에도 11개의 테이터가 필요하다.
+-->그렇지 않으면 게시판 테이블 생성시 bmno FK 제약조건에서  parent key not found 오류 발생
+*/
+
+
+--아바타 테이블 만들기--
+CREATE TABLE avatar(
+    ano NUMBER(2)
+        CONSTRAINT PR_AVT_NO_PK PRIMARY KEY,
+    savename VARCHAR2(50 CHAR)
+        CONSTRAINT PR_SNAME_UK UNIQUE
+        CONSTRAINT PR_SNAME_NN NOT NULL,
+    dir VARCHAR2(100 CHAR) DEFAULT '/img/avatar'
+        CONSTRAINT PR_DIR_NN NOT NULL,
+    gen CHAR(1)
+        CONSTRAINT PR_GEN_CK CHECK (gen IN('M', 'F', 'H'))
+        CONSTRAINT PR_GEN_NN NOT NULL,
+    adate DATE DEFAULT SYSDATE
+        CONSTRAINT PR_DATE_NN NOT NULL
+);
+-- 아바타 테이블에 사용할 시퀀스 만들기
+CREATE SEQUENCE pr_avt_seq 
+    START WITH 11;
+    
+-- 아바타 테이블에 데이터 넣기(11개)
+INSERT INTO 
+    avatar(ano, savename, gen)
+VALUES(pr_avt_seq.NEXTVAL, 'img_avatar1.png', 'M')
+;
+    
+INSERT INTO 
+    avatar(ano, savename, gen)
+VALUES(pr_avt_seq.NEXTVAL, 'img_avatar2.png', 'M')
+;
+
+INSERT INTO 
+    avatar(ano, savename, gen)
+VALUES(pr_avt_seq.NEXTVAL, 'img_avatar3.png', 'M')
+;    
+
+INSERT INTO 
+    avatar(ano, savename, gen)
+VALUES(pr_avt_seq.NEXTVAL, 'img_avatar4.png', 'F')
+;
+
+INSERT INTO 
+    avatar(ano, savename, gen)
+VALUES(pr_avt_seq.NEXTVAL, 'img_avatar5.png', 'F')
+;
+
+INSERT INTO 
+    avatar(ano, savename, gen)
+VALUES(pr_avt_seq.NEXTVAL, 'img_avatar6.png', 'F')
+;
+
+INSERT INTO 
+    avatar(ano, savename, gen)
+VALUES(pr_avt_seq.NEXTVAL, 'noimage.jpg', 'H')
+;    
+
+INSERT INTO 
+    avatar(ano, savename, gen)
+VALUES(pr_avt_seq.NEXTVAL, 'img_avatar8.png', 'M')
+; 
+
+INSERT INTO 
+    avatar(ano, savename, gen)
+VALUES(pr_avt_seq.NEXTVAL, 'img_avatar9.png', 'M')
+; 
+
+INSERT INTO 
+    avatar(ano, savename, gen)
+VALUES(pr_avt_seq.NEXTVAL, 'img_avatar10.png', 'F')
+; 
+
+INSERT INTO 
+    avatar(ano, savename, gen)
+VALUES(pr_avt_seq.NEXTVAL, 'img_avatar11.png', 'F')
+; 
+
+
+--회원 테이블 만들기--
+CREATE TABLE MEMBER(
+    mno NUMBER(4)
+        CONSTRAINT PR_MEM_NO_PK PRIMARY KEY,
+    id VARCHAR2(10 CHAR)
+        CONSTRAINT PR_MEM_ID_UK UNIQUE
+        CONSTRAINT PR_MEM_ID_NN NOT NULL,
+    pw VARCHAR2(8 CHAR) 
+        CONSTRAINT PR_MEM_PW_NN NOT NULL,
+    name VARCHAR2(30 CHAR) 
+        CONSTRAINT PR_MEM_NAME_NN NOT NULL,
+    tel VARCHAR2(20 CHAR)
+        CONSTRAINT PR_MEM_TEL_UK UNIQUE
+        CONSTRAINT PR_MEM_TEL_NN NOT NULL,
+    mail VARCHAR2(50 CHAR)
+        CONSTRAINT PR_MEM_MAIL_UK UNIQUE
+        CONSTRAINT PR_MEM_MAIL_NN NOT NULL,
+    gen CHAR(1)
+        CONSTRAINT PR_MEM_GEN_CK CHECK (gen IN ('M','F','H'))
+        CONSTRAINT PR_MEM_GEN_NN NOT NULL,
+    ano NUMBER(2)
+        CONSTRAINT PR_MEM_ANO_FK REFERENCES avatar(ano)
+        CONSTRAINT PR_MEM_ANO_NN NOT NULL,
+    bdate CHAR(10)
+        CONSTRAINT PR_MEM_BDATE_NN NOT NULL,
+    adate DATE DEFAULT sysdate
+        CONSTRAINT PR_MEM_ADATE_NN NOT NULL,
+    isshow CHAR(1) DEFAULT 'Y'
+        CONSTRAINT PR_MEM_SHOW_CK CHECK( isshow IN ('Y','N'))
+        CONSTRAINT PR_MEM_SHOW_NN NOT NULL
+);
+--멤버테이블에서 쓸 시퀀스 만들기    
+CREATE SEQUENCE PR_M_SEQ01
+    START WITH 1001
+    MAXVALUE 9999;
+
+
+--멤버테이블에 데이터 넣기(11개)      
+INSERT INTO 
+    member(mno, id, pw, name, tel, mail, gen, ano, bdate)
+VALUES(
+    PR_M_SEQ01.NEXTVAL, 'jun', '12345', '오리', '010-1111-1111', 'jun@increpas.com','M','11','1867/05/05');
+
+INSERT INTO 
+    member(mno, id, pw, name, tel, mail, gen, ano, bdate)
+VALUES(
+    PR_M_SEQ01.NEXTVAL, 'jan', '12345', '멸치', '010-2222-2222', 'jen@increpas.com','M','12','1878/05/05');
+
+INSERT INTO 
+    member(mno, id, pw, name, tel, mail, gen, ano, bdate)
+VALUES(
+    PR_M_SEQ01.NEXTVAL, 'ben', '12345', '사자', '010-3333-3333', 'ben@increpas.com','M','13','1999/05/05');
+
+INSERT INTO 
+    member(mno, id, pw, name, tel, mail, gen, ano, bdate)
+VALUES(
+    PR_M_SEQ01.NEXTVAL, 'cat', '12345', '고양이', '010-4444-4444', 'cat@increpas.com','F','14','1997/05/05');
+
+INSERT INTO 
+    member(mno, id, pw, name, tel, mail, gen, ano, bdate)
+VALUES(
+    PR_M_SEQ01.NEXTVAL, 'jane', '12345', '하마', '010-5555-5555', 'jane@increpas.com','F','15','1867/05/05');
+
+INSERT INTO 
+    member(mno, id, pw, name, tel, mail, gen, ano, bdate)
+VALUES(
+    PR_M_SEQ01.NEXTVAL, 'ron', '12345', '구피', '010-6666-6666', 'ron@increpas.com','F','16','1998/05/05');
+
+INSERT INTO 
+    member(mno, id, pw, name, tel, mail, gen, ano, bdate)
+VALUES(
+    PR_M_SEQ01.NEXTVAL, 'maya', '12345', '거미', '010-7777-7777', 'maya@increpas.com','H','17','1981/05/05');
+    
+INSERT INTO 
+    member(mno, id, pw, name, tel, mail, gen, ano, bdate)
+VALUES(
+    PR_M_SEQ01.NEXTVAL, 'yen', '12345', '돼지', '010-8888-8888', 'yen@increpas.com','M','18','1977/05/05');
+    
+INSERT INTO 
+    member(mno, id, pw, name, tel, mail, gen, ano, bdate)
+VALUES(
+    PR_M_SEQ01.NEXTVAL, 'jamie', '12345', '소', '010-9999-9999', 'jamie@increpas.com','M','19','1998/09/05');
+
+INSERT INTO 
+    member(mno, id, pw, name, tel, mail, gen, ano, bdate)
+VALUES(
+    PR_M_SEQ01.NEXTVAL, 'lyn', '12345', '말', '010-1010-1010', 'lyn@increpas.com','F','20','1996/04/05');
+
+INSERT INTO 
+    member(mno, id, pw, name, tel, mail, gen, ano, bdate)
+VALUES(
+    PR_M_SEQ01.NEXTVAL, 'jack', '12345', '까마귀', '010-1100-1100', 'jack@increpas.com','F','21','1979/10/05');
+    
+    
+---------만든 아바타테이블과 멤버테이블을 조합해서 결과 조회하기
+SELECT
+    mno 회원번호, id 아이디, name 이름, mail 메일, tel 전화번호, 
+    DECODE(m.gen,'M','남자',
+                 'F', '여자',
+                  '사람') 성별, CONCAT(CONCAT(dir,'/'), savename) 아바타경로
+FROM
+    avatar a, member m
+WHERE
+    a.ano = m.ano
+;
+
+-- 게시판 테이블 만들기--
+/*
+게시판의 bno (글번호) : PK / bmno(회원번호) :FK -> 멤버 테이블의 PK: mno(회원번호 참조) /
+멤버 테이블의 ano(아바타번호) FK -> 아바타테이블의 PK : ano(아바타 번호) 참조
+
+게시판 테이블 구성 컬럼
+bno(글번호), title(제목), body(본문), bmno(작성자), wdate(작성일), click(조회수), isschow(노출여부)
+*/
+
+CREATE TABLE board(
+    bno NUMBER(6)
+        CONSTRAINT PR_BRD_NO_PK PRIMARY KEY,
+    title VARCHAR2(50 CHAR)
+        CONSTRAINT PR_BRD_TITLE_NN NOT NULL,
+    body VARCHAR2(4000 CHAR) 
+        CONSTRAINT PR_BRD_BODY_NN NOT NULL,
+    bmno NUMBER(4)
+        CONSTRAINT PR_BRD_MNO_FK REFERENCES member(mno)
+        CONSTRAINT PR_BRD_MNO_NN NOT NULL,
+    wdate DATE DEFAULT sysdate
+        CONSTRAINT PR_BRD_DATE_NN NOT NULL,
+    click NUMBER(6) DEFAULT 0
+        CONSTRAINT PR_BRD_CLIKC_NN NOT NULL,
+    isshow CHAR(1) DEFAULT 'Y'
+        CONSTRAINT PR_BRD_SHOW_CK CHECK(isshow IN('Y','N'))
+        CONSTRAINT PR_BRD_SHOW_NN NOT NULL
+    );
+
+-- 게시판 테이블에 사용할 시퀀스 만들기--
+CREATE SEQUENCE PR_BRD_SEQ;
+
+-- 게시판 테이블에 데이터 넣기(11개)--
+INSERT INTO board(
+    bno, title, body, bmno)
+VALUES(pr_brd_seq.NEXTVAL, '게시글 제목1', '게시글 내용1', 1001
+    );
+    
+INSERT INTO board(
+    bno, title, body, bmno)
+VALUES(pr_brd_seq.NEXTVAL, '게시글 제목2', '게시글 내용2', 1002
+    );
+    
+INSERT INTO board(
+    bno, title, body, bmno)
+VALUES(pr_brd_seq.NEXTVAL, '게시글 제목3', '게시글 내용3', 1003
+    );
+    
+INSERT INTO board(
+    bno, title, body, bmno)
+VALUES(pr_brd_seq.NEXTVAL, '게시글 제목4', '게시글 내용4', 1004
+    );
+    
+INSERT INTO board(
+    bno, title, body, bmno)
+VALUES(pr_brd_seq.NEXTVAL, '게시글 제목5', '게시글 내용5', 1005
+    );
+    
+INSERT INTO board(
+    bno, title, body, bmno)
+VALUES(pr_brd_seq.NEXTVAL, '게시글 제목6', '게시글 내용6', 1006
+    );
+
+INSERT INTO board(
+    bno, title, body, bmno)
+VALUES(pr_brd_seq.NEXTVAL, '게시글 제목7', '게시글 내용7', 1007
+    );
+
+INSERT INTO board(
+    bno, title, body, bmno)
+VALUES(pr_brd_seq.NEXTVAL, '게시글 제목8', '게시글 내용6', 1008
+    );
+
+INSERT INTO board(
+    bno, title, body, bmno)
+VALUES(pr_brd_seq.NEXTVAL, '게시글 제목9', '게시글 내용9', 1009
+    );
+    
+INSERT INTO board(
+    bno, title, body, bmno)
+VALUES(pr_brd_seq.NEXTVAL, '게시글 제목10', '게시글 내용10', 1010
+    );
+    
+INSERT INTO board(
+    bno, title, body, bmno)
+VALUES(pr_brd_seq.NEXTVAL, '게시글 제목11', '게시글 내용11', 1011
+    );    
+-------------------------------------------------이위까지 pr 계정에서 작업. 
+/*
+<SQL PLUS 에서의 계정생성, 권한 : 관리자 계정에서만 가능>
+
+1. 생성
+CREATE USER 유저이름 IDENTIFIED BY 비밀번호 [ACCOUNT UNLOCK];
+
+2.권한부여
+참고로  RESOURCE 와 CONNECT는 자주 쓰이는 권한에 대한 롤
+GRANT RESOURCE, CONNECT TO 계정이름 [ WITH ADMIN OPTION- 관리자 권한까지 위임];
+GRANT CREATE SESSION TO 계정이름 
+
+3. 다른계정으로 전환
+CONN 계정이름/비번;
+
+4. 관리자 계정이 아닌 해당계정으로 바꾼다음에 테이블 생성등을 한다.
+
+-- 테이블을 생성하는데 테이블 스페이스 오류시-- 테이블 스페이스 변경하기
+ALTER USER 계정이름 DEFAULT TABLESPACE  테이블스페이스이름; --->SYSTEM 으로 되어있으면 USERS로 바꿔줌
+
+5. 다른 계정이 가지고 있는 테이블을 복사해서 생성시
+
+CREATE 생성할 테이블 이름
+AS 
+    SELECT
+        *
+    FROM 
+        가져올 데이터가 있는 테이블이름.가져올 테이블
+;
+
+참고] 시스템 계정이 잠겼을 때 잠금 풀기
+
+--sqlplus / as sysdba 로 접속 
+--> 시스템 계정 접근 : 만약 잠겨있으면 ALTER USER system IDENTIFIED BY increpas ACCOUNT UNLOCK;
+
+*/
+
+/*
+<SQL DEVELPER 에서의 계정생성, 권한: 역시 관리자 계정>
+1. hello / increpas 계정을 만드세요
+2. SCOTT 계정에 emp, dept, salgrade, bonus 를 복사해서 테이블을 만드세요
+3. 위에서 복사한 테이블들의 제약조건을 확인하고 복사한 테이블에 부여하세요
+*/
+
+-- 시스템 계정으로 전환 hello 계정 생성하기
+CREATE USER hello IDENTIFIED BY increaps ACCOUNT UNLOCK;
+
+--권한을 부여하기
+GRANT RESOURCE, CONNECT, SELECT ANY TABLE TO hello;
+
+--이제 hello 계정을 + 로 실제적으로 생성해준다.
+-- 테스트 후 저장 hello로 접속해서 테이블 만들기
+CREATE TABLE emp
+AS
+    SELECT 
+        *
+    FROM
+        SCOTT.emp
+;
+
+CREATE TABLE dept
+AS
+    SELECT 
+        *
+    FROM
+        SCOTT.dept
+;
+
+CREATE TABLE salgrade
+AS
+    SELECT 
+        *
+    FROM
+        SCOTT.salgrade
+;
+
+CREATE TABLE bonus
+AS
+    SELECT 
+        *
+    FROM
+        SCOTT.bonus
+;
+
+--SCOTT 계정의 원본 테이블을 참고하려 제약조건 가져오기
+
+ALTER TABLE 
+    emp
+ADD
+    CONSTRAINT HELLO_EMP_ENO_PK PRIMARY KEY(empno);
+    
+-- ************중요:EMP 에 FK를 걸때 DEPT 테이블에서 먼저 deptno에 대해 기본키를 설정해준후에 FK를 걸 수 있음*******************    
+ALTER TABLE
+    dept
+ADD
+    CONSTRAINT HELLO_DEPT_NO_PK PRIMARY KEY(deptno);
+    
+ALTER TABLE
+    emp
+ADD
+    CONSTRAINT HELLO_EMP_NO_FK FOREIGN KEY (deptno) REFERENCES dept(deptno);
+
+ALTER TABLE
+    emp
+MODIFY
+    ename CONSTRAINT HELLO_EMP_NAME_NN NOT NULL;
+    
+ALTER TABLE
+    emp
+MODIFY
+    job CONSTRAINT HELLO_EMP_JOB_NN NOT NULL;
+
+ALTER TABLE
+    emp
+MODIFY
+    hiredate CONSTRAINT HELLO_EMP_DATE_NN NOT NULL;
+    
+ALTER TABLE
+    emp
+MODIFY
+    sal CONSTRAINT HELLO_EMP_SAL_NN NOT NULL;
+
+ALTER TABLE
+    emp
+MODIFY
+    deptno CONSTRAINT HELLO_EMP_DNO_NN NOT NULL;
+
+ALTER TABLE
+    salgrade
+ADD 
+    CONSTRAINT HELLO_SGRD_GRD_PK PRIMARY KEY(grade);
+    
+ALTER TABLE
+    dept
+MODIFY
+    dname CONSTRAINT HELLO_DEPT_NAME_NN NOT NULL;
+    
+--참고 ] 테이블 복사후 nullable 을 MODIFY 명령어로 NOT NULL을 걸어줄때,
+-- 해당칼럼에 이미 NULL 값이 존재한다면 NOT NULL 을 걸어줄 수 없다.
+
+--참고] 또한 다른 계정에서 복사해온 테이블의 이름은 같아도 제약조건은 원본테이블과 다르게 설정해줘야 한다.
+
+
+/*
+PR 계정에 만들어진
+  MEMBER, AVATER, BOARD 테이블을 HELLO 계정에 복사해서 만들고 제약조건까지 부여하세요  
+*/
+
+-- PR 계정에서 테이블 복사해서 만들기
+CREATE TABLE member
+AS
+    SELECT
+        *
+    FROM
+        PR.member
+;
+
+CREATE TABLE board
+AS
+    SELECT
+        *
+    FROM
+        PR.board
+;
+
+--제약조건 추가
+/* 중요]******* 테이블 복사시 NOT NULL 의 조건이 걸려있던 경우 NOT NULL 조건은 그대로 자동으로 가져오며,
+제약조건의 이름은 오라클이 알아서 정해버린다.
+*/
+
+ALTER TABLE avatar
+ADD
+    CONSTRAINT HELLO_AVT_ANO_PK PRIMARY KEY(ano);
+    
+ALTER TABLE avatar
+ADD
+    CONSTRAINT HELLO_AVT_SNAME_UK UNIQUE(savename);
+    
+ALTER TABLE avatar
+ADD
+    CONSTRAINT HELLO_AVT_GEN_CK CHECK (gen IN ('M','F','H'))
+;
+
+ALTER TABLE member
+ADD
+    CONSTRAINT HELLO_MEM_MNO_PK PRIMARY KEY(mno);
+
+ALTER TABLE member
+ADD
+    CONSTRAINT HELLO_MEM_ANO_FK FOREIGN KEY (ano) REFERENCES avatar(ano);
+    
+ALTER TABLE member
+ADD
+    CONSTRAINT HELLO_MEM_GEN_CH CHECK(gen IN ('M','F','H'));
+
+ALTER TABLE member
+ADD 
+    CONSTRAINT HELLO_MEM_ID_UK UNIQUE(id);
+    
+ALTER TABLE member
+ADD 
+    CONSTRAINT HELLO_MEM_mail_UK UNIQUE(mail);
+    
+ALTER TABLE member
+ADD
+    CONSTRAINT HELLO_MEM_SHOW_CK CHECK(isshow IN ('Y','N'));
+
+ALTER TABLE member
+ADD
+    CONSTRAINT HELLO_MEM_TEL_UK UNIQUE(tel);
+    
+ALTER TABLE board
+ADD
+    CONSTRAINT HELLO_BRD_SHOW_CK CHECK (isshow IN ('Y','N'));
+
+ALTER TABLE board
+ADD
+    CONSTRAINT HELLO_BRD_BNO_PK PRIMARY KEY(bno);
+
+ALTER TABLE board
+ADD
+    CONSTRAINT HELLO_BRD_MNO_FK FOREIGN KEY(bmno) REFERENCES member(mno);
+    
+---------------자동으로 가져온 NULL 제약조건의 이름 바꿔주기--------------
+ALTER TABLE avatar
+RENAME CONSTRAINT SYS_C007333 TO HELLO_AVT_SNAME_NN;
+
+ALTER TABLE avatar
+RENAME CONSTRAINT SYS_C007334 TO HELLO_AVT_DIR_NN;
+
+ALTER TABLE avatar
+RENAME CONSTRAINT SYS_C007335 TO HELLO_AVT_GEN_NN;
+
+ALTER TABLE avatar
+RENAME CONSTRAINT SYS_C007336 TO HELLO_AVT_DATE_NN;
+
+ALTER TABLE member
+RENAME CONSTRAINT SYS_C007323 TO HELLO_MEM_ID_NN;
+
+ALTER TABLE member
+RENAME CONSTRAINT SYS_C007324 TO HELLO_MEM_PW_NN;
+
+ALTER TABLE member
+RENAME CONSTRAINT SYS_C007325 TO HELLO_MEM_NAME_NN;
+
+ALTER TABLE member
+RENAME CONSTRAINT SYS_C007326 TO HELLO_MEM_TEL_NN;
+
+ALTER TABLE member
+RENAME CONSTRAINT SYS_C007327 TO HELLO_MEM_MAIL_NN;
+
+ALTER TABLE member
+RENAME CONSTRAINT SYS_C007328 TO HELLO_MEM_GEN_NN;
+
+ALTER TABLE member
+RENAME CONSTRAINT SYS_C007329 TO HELLO_MEM_ANO_NN;
+
+ALTER TABLE member
+RENAME CONSTRAINT SYS_C007330 TO HELLO_MEM_BDATE_NN;
+
+ALTER TABLE member
+RENAME CONSTRAINT SYS_C007332 TO HELLO_MEM_SHOW_NN;
+
+ALTER TABLE member
+RENAME CONSTRAINT SYS_C007331 TO HELLO_MEM_ADATE_NN;
+
+ALTER TABLE board
+RENAME CONSTRAINT SYS_C007337 TO HELLO_BRD_TITLE_NN;
+
+ALTER TABLE board
+RENAME CONSTRAINT SYS_C007338 TO HELLO_BRD_BODY_NN;
+
+ALTER TABLE board
+RENAME CONSTRAINT SYS_C007339 TO HELLO_BRD_MNO_NN;
+
+ALTER TABLE board
+RENAME CONSTRAINT SYS_C007340 TO HELLO_BRD_WDATE_NN;
+
+ALTER TABLE board
+RENAME CONSTRAINT SYS_C007341 TO HELLO_BRD_CLICK_NN;
+
+ALTER TABLE board
+RENAME CONSTRAINT SYS_C007342 TO HELLO_BRD_SHOW_NN;
+
+--<좀있다가 아침에 할일>--
+/*
+이미 만든 board 테이블로
+게시판 테이블엔 데이터 한 11개정도 넣기
+    게시판 테이블을 조회할 때
+    한 페이지에 볼 수 있는 게시글 수는 3개로 하고 (필수) -->insert
+    한 페이지에서 이동가능한 페이지 수는 3개로 하세요.(옵션) --> rownum, select
+    
+    글번호 | 제목 | 작성자 | 작성일   | 조회수 |
+    ------------------------------------------------
+    1001    TEST    euns    2021/02/04   0
+    1002    TEST    euns    2021/02/04   0
+    1003    TEST    euns    2021/02/04   0
+    --------------------------------------------------
+            [이전] [1] [2] [3] [다음]  ------> 페이지를 누르면 세개가 뽑혀나와야댐
+            
+            페이지 수 추출 : 전체 개수 나누기 3/ 아예 게시글이 없는 경우나 그런경우 +1 해줘야함
+            한페이지에 게시글이 10개 보여지려면 10 /3 그럼 나머지 1이 남고 +1해줘야함
+            
+            몫은 FLOOR 로 정수부분만 잘라주면됌
+            
+            예) select 0 / 3 from dual;
+*/
+
+/* 주말에 시퀀스 (DAY 13 ) , 인덱스 (DAY 14) 보충 */
